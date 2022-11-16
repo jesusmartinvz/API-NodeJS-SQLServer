@@ -3,13 +3,13 @@ const mysql = require('mysql');
 
 const bodyParser = require('body-parser');
 
-/*
-const port = process.env.port || 3050;
-*/
+
+const port = process.env.PORT || 3000;
 
 const app = express()
 
-app.use(bodyParser.json());
+app.use(express.json());
+//app.use(bodyParser.json());
 
 //Connection Details
 const connection = mysql.createConnection({
@@ -97,36 +97,5 @@ connection.connect(error =>{
     console.log('Conexión exitosa')
 })
 
-/*
+
 app.listen(port, ()=> console.log(`Server running on port ${port}`));
-
-*/
-
-
-
-/*
-
-//View engine
-app.set('view engine', 'ejs')
-
-
-
-
-
-
-// Render Home Page
-app.get('/', function(req, res){
-
-    connection.query('SELECT * FROM cab_venta where Id_Venta = "11"', (error, rows) => {
-        if(error) throw error;
-        if(!error){
-            console.log(rows)
-            res.render('pages/index', {rows})
-        }
-    })
-})
-
-app.listen(port)
-console.log(`Server is listening on port ${port}`);
-
-*/
