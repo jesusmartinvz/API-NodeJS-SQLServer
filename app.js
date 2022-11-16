@@ -2,7 +2,10 @@ const express = require('express');
 const mysql = require('mysql');
 
 const bodyParser = require('body-parser');
+
+/*
 const port = process.env.port || 3050;
+*/
 
 const app = express()
 
@@ -94,9 +97,10 @@ connection.connect(error =>{
     console.log('Conexión exitosa')
 })
 
+/*
 app.listen(port, ()=> console.log(`Server running on port ${port}`));
 
-
+*/
 
 
 
