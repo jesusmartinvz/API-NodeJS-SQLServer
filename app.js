@@ -39,13 +39,34 @@ app.get('/api', (req, res) => {
             res.send('No hay boletas disponibles');
         }
     });
+    /* #swagger.responses[200] = {
+          description: "Operacion exitosa",
+          content: {
+            "application/json": {
+              schema: { 
+                $ref: "#/definitions/myReferencedBillArray"                             
+              }
+            }
+          }
+      }
+  */
 });
 
 //BOLETA FOR ID
 app.get('/api/:factura', (req,res) =>{
     const {factura } = req.params
     const sql = `SELECT * FROM cab_venta Where NumFactura = ${factura}`;
-    /* #swagger.responses[200] = {
+        connection.query(sql, (error, result) => {
+            if(error) throw error;
+
+            if(result.length > 0) {
+                res.json(result);
+            }else{
+                res.status(404).send('Boleta no encontrada');
+                res.send('No existe la boleta');
+            }
+        });
+        /* #swagger.responses[200] = {
           description: "Operacion exitosa",
           content: {
             "application/json": {
@@ -55,16 +76,7 @@ app.get('/api/:factura', (req,res) =>{
             }
           }
       }
-  */
-        connection.query(sql, (error, result) => {
-            if(error) throw error;
-
-            if(result.length > 0) {
-                res.json(result);
-            }else{
-                res.send('No existe la boleta');
-            }
-        });
+    */
         
 });
 

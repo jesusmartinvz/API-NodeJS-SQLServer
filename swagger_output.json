@@ -1,0 +1,218 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Ecommerce API",
+    "description": "Proyecto Ecommerce API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://nodes-api-mysql.herokuapp.com"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operacion exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/myReferencedBillArray"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/{factura}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "factura",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bill"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/add": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "NumFactura": {
+                    "example": "any"
+                  },
+                  "Total_Fac": {
+                    "example": "any"
+                  },
+                  "Fecha_Fac": {
+                    "example": "any"
+                  },
+                  "IdUsuario": {
+                    "example": "any"
+                  },
+                  "id_estado": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/update/{id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id_estado": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/delete/{id}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Bill": {
+        "type": "object",
+        "properties": {
+          "Id_Venta": {
+            "type": "number",
+            "description": "Id de la venta",
+            "example": 1542
+          },
+          "NumFactura": {
+            "type": "string",
+            "description": "Numero de la factura",
+            "example": "12345"
+          },
+          "Total_Fac": {
+            "type": "number",
+            "description": "Costo total de la factura",
+            "example": 3000.5
+          },
+          "Fecha_Fac": {
+            "type": "string",
+            "description": "Fecha de la factura",
+            "example": "15/11/2022"
+          },
+          "IdUsuario": {
+            "type": "number",
+            "description": "id de usuario",
+            "example": 201
+          },
+          "id_estado": {
+            "type": "string",
+            "description": "estado del pedido",
+            "example": "Enviado"
+          }
+        },
+        "example": {
+          "Id_Venta": 1542,
+          "NumFactura": "12345",
+          "Total_Fac": 3000.5,
+          "Fecha_Fac": "15/11/2022",
+          "IdUsuario": 201,
+          "id_estado": "Enviado"
+        }
+      },
+      "myReferencedBillArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Bill"
+        }
+      }
+    }
+  }
+}

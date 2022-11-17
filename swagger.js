@@ -10,7 +10,7 @@ const doc = {
     },
     servers: [
       {
-        url: "https://nodes-api-mysql.herokuapp.com/api"
+        url: "https://nodes-api-mysql.herokuapp.com"
       }
     ],
     components: {
@@ -24,9 +24,9 @@ const doc = {
               example: 1542
             },
             NumFactura: {
-              type: "number",
+              type: "string",
               description: "Numero de la factura",
-              example: 12345
+              example: "12345"
             },
             Total_Fac: {
               type: "number",
@@ -51,7 +51,7 @@ const doc = {
           },
           example: {
             Id_Venta: 1542,
-            NumFactura: 12345,
+            NumFactura: "12345",
             Total_Fac: 3000.50,
             Fecha_Fac: "15/11/2022",
             IdUsuario: 201,
