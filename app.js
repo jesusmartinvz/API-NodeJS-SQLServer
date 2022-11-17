@@ -93,10 +93,22 @@ app.delete('/api/delete/:id', (req, res) =>{
 })
 
 //Check Connection
+/*
 connection.connect(error =>{
     if(error) throw error;
     console.log('Conexión exitosa')
 })
+*/
+
+//createPOOL
+connection.getConnection(function (err, connection) {
+    //connecting to database
+    if (err) {
+        console.log("MYSQL CONNECT ERROR: " + err);
+    } else {
+        console.log("MYSQL CONNECTED SUCCESSFULLY.");
+    }
+});
 
 
 app.listen(port, ()=> console.log(`Server running on port ${port}`));
