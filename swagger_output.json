@@ -7,29 +7,11 @@
   },
   "servers": [
     {
-      "url": "https://nodes-api-mysql.herokuapp.com"
+      "url": "https://nodes-api-mysql.herokuapp.com/api"
     }
   ],
   "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Operacion exitosa",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Bill"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api": {
+    "/ecommerce": {
       "get": {
         "description": "",
         "parameters": [],
@@ -47,7 +29,7 @@
         }
       }
     },
-    "/api/{factura}": {
+    "/ecommerce/{factura}": {
       "get": {
         "description": "",
         "parameters": [
@@ -77,7 +59,7 @@
         }
       }
     },
-    "/api/add": {
+    "/ecommerce/add": {
       "post": {
         "description": "",
         "parameters": [],
@@ -114,7 +96,7 @@
         }
       }
     },
-    "/api/update/{id}": {
+    "/ecommerce/update/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -148,7 +130,7 @@
         }
       }
     },
-    "/api/delete/{id}": {
+    "/ecommerce/delete/{id}": {
       "delete": {
         "description": "",
         "parameters": [

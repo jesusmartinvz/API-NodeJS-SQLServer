@@ -2,10 +2,10 @@
   "name": "api-mysql",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "swagger-autogen": "node swagger.js"
+    "start": "node index",
+    "swagger-autogen": "node swagger"
   },
   "keywords": [],
   "author": "",

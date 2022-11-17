@@ -1,7 +1,7 @@
 
 const swaggerAutogen = require("swagger-autogen")({openapi: "3.0.0"});
 const outputFile = "./swagger_output.json";
-const endpointsFiles = ["./app.js"];
+const endpointsFiles = ["./routes/app.js"];
 
 const doc = {
     info: {
@@ -10,7 +10,7 @@ const doc = {
     },
     servers: [
       {
-        url: "https://nodes-api-mysql.herokuapp.com"
+        url: "https://nodes-api-mysql.herokuapp.com/api"
       }
     ],
     components: {

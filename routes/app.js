@@ -1,22 +1,8 @@
 const express = require('express');
+const router = express.Router();
+
 const mysql = require('mysql');
 
-const test = [
-    {Id_Venta: 3, NumFactura: '11123', Total_Fac: 9.99, Fecha_Fac: '11/11/2011', IdUsuario: 3, id_estado: 'vendido'}
-  ];
-  
-
-const bodyParser = require('body-parser');
-
-
-const port = process.env.PORT || 3000;
-
-const app = express()
-
-app.use(express.json());
-//app.use(bodyParser.json());
-
-//Connection Details
 //mysql.createConnection
 const connection = mysql.createPool({
     host: 'eu-cdbr-west-03.cleardb.net',
@@ -26,27 +12,7 @@ const connection = mysql.createPool({
 });
 
 //Route
-app.get('/', (req, res) => {
-    
-    //res.send('Bienvenido API-ECOMMERCE');
-    
-     /* #swagger.responses[200] = {
-          description: "Operacion exitosa",
-          content: {
-            "application/json": {
-              schema: { 
-                $ref: "#/definitions/Bill"
-              }
-            }
-          }
-      }
-    */
-    res.send(test);
-});
-
-
-//ALL Boletas
-app.get('/api', (req, res) => {
+router.get('/ecommerce', (req, res) => {
     const sql = 'SELECT * FROM cab_venta';
     
     connection.query(sql, (error, results) => {
@@ -72,7 +38,7 @@ app.get('/api', (req, res) => {
 });
 
 //BOLETA FOR ID
-app.get('/api/:factura', (req,res) =>{
+router.get('/ecommerce/:factura', (req,res) =>{
     const {factura } = req.params
     const sql = `SELECT * FROM cab_venta Where NumFactura = ${factura}`;
     /* #swagger.responses[200] = {
@@ -99,7 +65,7 @@ app.get('/api/:factura', (req,res) =>{
         
 });
 
-app.post('/api/add', (req, res) =>{
+router.post('/ecommerce/add', (req, res) =>{
     const sql = 'INSERT INTO cab_venta SET ?';
     const ventaObj = {
         NumFactura: req.body.NumFactura,
@@ -114,7 +80,7 @@ app.post('/api/add', (req, res) =>{
     });
 });
 
-app.put('/api/update/:id', (req, res) =>{
+router.put('/ecommerce/update/:id', (req, res) =>{
     const {id } = req.params;
     const {id_estado} = req.body;
     const sql = `UPDATE cab_venta set id_estado = '${id_estado}' WHERE Id_Venta = ${id}`;
@@ -125,7 +91,7 @@ app.put('/api/update/:id', (req, res) =>{
     });
 })
 
-app.delete('/api/delete/:id', (req, res) =>{
+router.delete('/ecommerce/delete/:id', (req, res) =>{
     const {id } = req.params;
     const sql = `DELETE FROM cab_venta WHERE Id_Venta = ${id}`;
     connection.query(sql, error => {
@@ -135,13 +101,6 @@ app.delete('/api/delete/:id', (req, res) =>{
 
 })
 
-//Check Connection
-/*
-connection.connect(error =>{
-    if(error) throw error;
-    console.log('Conexión exitosa')
-})
-*/
 
 //createPOOL
 connection.getConnection(function (err, connection) {
@@ -154,4 +113,4 @@ connection.getConnection(function (err, connection) {
 });
 
 
-app.listen(port, ()=> console.log(`Server running on port ${port}`));
+module.exports = router;
