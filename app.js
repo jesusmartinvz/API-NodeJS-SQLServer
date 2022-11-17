@@ -45,6 +45,17 @@ app.get('/api', (req, res) => {
 app.get('/api/:factura', (req,res) =>{
     const {factura } = req.params
     const sql = `SELECT * FROM cab_venta Where NumFactura = ${factura}`;
+    /* #swagger.responses[200] = {
+          description: "Operacion exitosa",
+          content: {
+            "application/json": {
+              schema: { 
+                $ref: "#/definitions/Bill"
+              }
+            }
+          }
+      }
+  */
         connection.query(sql, (error, result) => {
             if(error) throw error;
 
@@ -54,6 +65,7 @@ app.get('/api/:factura', (req,res) =>{
                 res.send('No existe la boleta');
             }
         });
+        
 });
 
 app.post('/api/add', (req, res) =>{
