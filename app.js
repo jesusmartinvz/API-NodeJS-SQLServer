@@ -1,6 +1,11 @@
 const express = require('express');
 const mysql = require('mysql');
 
+const test = [
+    {Id_Venta: 3, NumFactura: '11123', Total_Fac: 9.99, Fecha_Fac: '11/11/2011', IdUsuario: 3, id_estado: 'vendido'}
+  ];
+  
+
 const bodyParser = require('body-parser');
 
 
@@ -22,7 +27,21 @@ const connection = mysql.createPool({
 
 //Route
 app.get('/', (req, res) => {
-    res.send('Bienvenido API-ECOMMERCE');
+    
+    //res.send('Bienvenido API-ECOMMERCE');
+    
+     /* #swagger.responses[200] = {
+          description: "Operacion exitosa",
+          content: {
+            "application/json": {
+              schema: { 
+                $ref: "#/definitions/myReferencedBillArray"                             
+              }
+            }
+          }
+      }
+  */
+    res.send(test);
 });
 
 
@@ -56,17 +75,7 @@ app.get('/api', (req, res) => {
 app.get('/api/:factura', (req,res) =>{
     const {factura } = req.params
     const sql = `SELECT * FROM cab_venta Where NumFactura = ${factura}`;
-        connection.query(sql, (error, result) => {
-            if(error) throw error;
-
-            if(result.length > 0) {
-                res.json(result);
-            }else{
-                res.status(404).send('Boleta no encontrada');
-                res.send('No existe la boleta');
-            }
-        });
-        /* #swagger.responses[200] = {
+    /* #swagger.responses[200] = {
           description: "Operacion exitosa",
           content: {
             "application/json": {
@@ -77,6 +86,16 @@ app.get('/api/:factura', (req,res) =>{
           }
       }
     */
+        connection.query(sql, (error, result) => {
+            if(error) throw error;
+
+            if(result.length > 0) {
+                res.json(result);
+            }else{
+                res.status(404).send('Boleta no encontrada');
+                res.send('No existe la boleta');
+            }
+        });
         
 });
 
