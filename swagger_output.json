@@ -17,7 +17,14 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Operacion exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bill"
+                }
+              }
+            }
           }
         }
       }

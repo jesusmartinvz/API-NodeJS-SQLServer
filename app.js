@@ -35,12 +35,12 @@ app.get('/', (req, res) => {
           content: {
             "application/json": {
               schema: { 
-                $ref: "#/definitions/myReferencedBillArray"                             
+                $ref: "#/definitions/Bill"
               }
             }
           }
       }
-  */
+    */
     res.send(test);
 });
 
