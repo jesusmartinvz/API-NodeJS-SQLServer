@@ -12,7 +12,8 @@ app.use(express.json());
 //app.use(bodyParser.json());
 
 //Connection Details
-const connection = mysql.createConnection({
+//mysql.createConnection
+const connection = mysql.createPool({
     host: 'eu-cdbr-west-03.cleardb.net',
     user: 'b9c530f6dc11e9',
     password: 'c96485ab',
