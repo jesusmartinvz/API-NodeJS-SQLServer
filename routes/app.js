@@ -57,7 +57,9 @@ router.get('/ecommerce/:factura', (req,res) =>{
             if(error) throw error;
 
             if(result.length > 0) {
-                res.json(result);
+                //res.json(result);
+                res.send(result);
+                res.status(200).send(result);
 
             }else{
                 res.status(404).send('Boleta no encontrada');
