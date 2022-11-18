@@ -41,7 +41,12 @@ router.get('/ecommerce', (req, res) => {
 router.get('/ecommerce/:factura', (req,res) =>{
     const {factura } = req.params
     const sql = `SELECT * FROM cab_venta Where NumFactura = ${factura}`;
-    /* #swagger.responses[200] = {
+        connection.query(sql, (error, result) => {
+            if(error) throw error;
+
+            if(result.length > 0) {
+            
+                /* #swagger.responses[200] = {
           description: "Operacion exitosa",
           content: {
             "application/json": {
@@ -52,11 +57,8 @@ router.get('/ecommerce/:factura', (req,res) =>{
           }
       }
     */
-        connection.query(sql, (error, result) => {
-            if(error) throw error;
-
-            if(result.length > 0) {
                 res.json(result);
+
             }else{
                 res.status(404).send('Boleta no encontrada');
                 res.send('No existe la boleta');
