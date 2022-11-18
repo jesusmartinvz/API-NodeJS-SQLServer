@@ -20,6 +20,7 @@ router.get('/ecommerce', (req, res) => {
 
         if(results.length > 0) {
             res.json(results);
+            console.log(results);
         }else{
             res.send('No hay boletas disponibles');
         }
@@ -47,8 +48,19 @@ router.get('/ecommerce/:factura', (req,res) =>{
             if(error) throw error;
 
             if(result.length > 0) {
-                res.json(result);
-                res.status(200).send(result);
+                //res.json(result);
+                //res.send(result);
+                const jsonVar = 
+                  {Id_Venta: result[0].Id_Venta, 
+                              NumFactura: result[0].NumFactura, 
+                              Total_Fac: result[0].Total_Fac, 
+                              Fecha_Fac: result[0].Fecha_Fac, 
+                              IdUsuario: result[0].IdUsuario, 
+                              id_estado: result[0].id_estado};
+                res.send(jsonVar);
+                //console.log(result);
+                //console.log(result.Id_Venta);
+                //console.log(result[0].Id_Venta);
 
             }else{
                 res.status(404).send('Boleta no encontrada');
