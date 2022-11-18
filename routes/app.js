@@ -48,8 +48,6 @@ router.get('/ecommerce/:factura', (req,res) =>{
             if(error) throw error;
 
             if(result.length > 0) {
-                //res.json(result);
-                //res.send(result);
                 const jsonVar = 
                   {Id_Venta: result[0].Id_Venta, 
                               NumFactura: result[0].NumFactura, 
@@ -58,9 +56,6 @@ router.get('/ecommerce/:factura', (req,res) =>{
                               IdUsuario: result[0].IdUsuario, 
                               id_estado: result[0].id_estado};
                 res.send(jsonVar);
-                //console.log(result);
-                //console.log(result.Id_Venta);
-                //console.log(result[0].Id_Venta);
 
             }else{
                 res.status(404).send('Boleta no encontrada');
