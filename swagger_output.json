@@ -58,6 +58,82 @@
           }
         }
       }
+    },
+    "/productos/{codigo}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Prod"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/productos": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operacion exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/myReferencedProdArray"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contactos/add": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Operacion exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Client"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -105,10 +181,102 @@
           "id_estado": "Enviado"
         }
       },
+      "Prod": {
+        "type": "object",
+        "properties": {
+          "IdProducto": {
+            "type": "number",
+            "description": "Id del producto",
+            "example": 15
+          },
+          "CodProducto": {
+            "type": "string",
+            "description": "Codigo del producto",
+            "example": "12345"
+          },
+          "Descripcion": {
+            "type": "string",
+            "description": "Nombre del producto",
+            "example": "Logitech G123 - Ultra"
+          },
+          "Precio": {
+            "type": "number",
+            "description": "Precio del producto",
+            "example": 203.2
+          },
+          "Stock": {
+            "type": "number",
+            "description": "Stock del producto",
+            "example": 223
+          }
+        },
+        "example": {
+          "IdProducto": 15,
+          "CodProducto": "12345",
+          "Descripcion": "Nombre del producto",
+          "Precio": 203.2,
+          "Stock": 223
+        }
+      },
+      "Client": {
+        "type": "object",
+        "properties": {
+          "idcontactos": {
+            "type": "number",
+            "description": "Id del contacto",
+            "example": 11
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del contacto",
+            "example": "Jhon"
+          },
+          "apellido": {
+            "type": "string",
+            "description": "Apellido del contacto",
+            "example": "Aucaylle"
+          },
+          "correo": {
+            "type": "string",
+            "description": "Correo del contacto",
+            "example": "jhon-aucaylle@gmail.com"
+          },
+          "telefono": {
+            "type": "string",
+            "description": "Telefono del contacto",
+            "example": "98512478"
+          },
+          "descripcion": {
+            "type": "string",
+            "description": "descripcion del contacto",
+            "example": "Necesito equipos para reveender"
+          },
+          "motivo": {
+            "type": "string",
+            "description": "motivo del contacto",
+            "example": "Consulta"
+          }
+        },
+        "example": {
+          "idcontactos": 11,
+          "nombre": "Jhon",
+          "apellido": "Aucaylle",
+          "correo": "jhon-aucaylle@gmail.com",
+          "telefono": "98512478",
+          "descripcion": "Necesito equipos para reveender",
+          "motivo": "Consulta"
+        }
+      },
       "myReferencedBillArray": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Bill"
+        }
+      },
+      "myReferencedProdArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Prod"
         }
       }
     }

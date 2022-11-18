@@ -95,6 +95,56 @@ const doc = {
             Precio: 203.20,
             Stock: 223
           }
+
+        },
+        Client: {
+          type: "object",
+          properties: {
+            idcontactos: {
+              type: "number",
+              description: "Id del contacto",
+              example: 11
+            },
+            nombre: {
+              type: "string",
+              description: "Nombre del contacto",
+              example: "Jhon"
+            },
+            apellido: {
+              type: "string",
+              description: "Apellido del contacto",
+              example: "Aucaylle"
+            },
+            correo: {
+              type: "string",
+              description: "Correo del contacto",
+              example: "jhon-aucaylle@gmail.com"
+            },
+            telefono: {
+              type: "string",
+              description: "Telefono del contacto",
+              example: "98512478"
+            },
+            descripcion: {
+              type: "string",
+              description: "descripcion del contacto",
+              example: "Necesito equipos para reveender"
+            },
+            motivo: {
+              type: "string",
+              description: "motivo del contacto",
+              example: "Consulta"
+            }       
+          },
+          example: {
+            idcontactos: 11,
+            nombre: "Jhon",
+            apellido: "Aucaylle",
+            correo: "jhon-aucaylle@gmail.com",
+            telefono: "98512478",
+            descripcion: "Necesito equipos para reveender",
+            motivo: "Consulta"
+          }
         }
       }
     },

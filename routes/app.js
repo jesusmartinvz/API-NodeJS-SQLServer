@@ -166,6 +166,43 @@ router.get('/productos', (req, res) => {
 */
 });
 
+router.post('/contactos/add', (req, res) =>{
+  const sql = 'INSERT INTO contactos SET ?';
+  const ventaObj = {
+      nombre: req.body.nombre,
+      apellido: req.body.apellido,
+      correo: req.body.correo,
+      telefono: req.body.telefono,
+      descripcion: req.body.descripcion,
+      motivo: req.body.motivo
+  };
+  connection.query(sql, ventaObj, error => {
+      if(error) throw error;
+      res.send('Cliente agregado');
+  });
+    /* #swagger.requestBody = {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/definitions/Client"
+            }
+          }
+        }
+      }
+     #swagger.responses[200] = {
+        description: "Operacion exitosa",
+        content: {
+          "application/json": {
+            schema: {
+              $ref: "#/definitions/Client"
+            }
+          }
+        }
+      }
+  */
+});
+
 
 //createPOOL
 connection.getConnection(function (err, connection) {
