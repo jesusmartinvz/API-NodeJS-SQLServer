@@ -76,6 +76,96 @@ router.get('/ecommerce/:factura', (req,res) =>{
         
 });
 
+router.get('/ecommerce', (req, res) => {
+    const sql = 'SELECT * FROM cab_venta';
+    
+    connection.query(sql, (error, results) => {
+        if(error) throw error;
+
+        if(results.length > 0) {
+            res.json(results);
+            console.log(results);
+        }else{
+            res.send('No hay boletas disponibles');
+        }
+    });
+    /* #swagger.responses[200] = {
+          description: "Operacion exitosa",
+          content: {
+            "application/json": {
+              schema: { 
+                $ref: "#/definitions/myReferencedBillArray"                             
+              }
+            }
+          }
+      }
+  */
+});
+
+//PRODUCTOS
+router.get('/productos/:codigo', (req,res) =>{
+  const {codigo } = req.params
+  const sql = `SELECT * FROM producto Where CodProducto = "${codigo}"`;
+    
+      connection.query(sql, (error, result) => {
+      
+          if(error) throw error;
+
+          if(result.length > 0) {
+              const jsonVarP = 
+                            {IdProducto: result[0].IdProducto, 
+                            CodProducto: result[0].CodProducto, 
+                            Descripcion: result[0].Descripcion, 
+                            Precio: result[0].Precio, 
+                            Stock: result[0].Stock};
+              res.send(jsonVarP);
+
+          }else{
+              res.status(404).send('Boleta no encontrada');
+              res.send('No existe la boleta');
+          }
+      });
+      /* #swagger.responses[200] = {
+        description: "Operacion exitosa",
+        content: {
+          "application/json": {
+            schema: { 
+              $ref: "#/definitions/Prod"
+            }
+          }
+        }
+    }
+  */  
+      
+});
+
+//ALL PRODUCTOS
+router.get('/productos', (req, res) => {
+  const sql = 'SELECT * FROM producto ORDER BY IdProducto DESC LIMIT 5';
+  
+  connection.query(sql, (error, results) => {
+      if(error) throw error;
+
+      if(results.length > 0) {
+          res.json(results);
+          console.log(results);
+      }else{
+          res.send('No hay boletas disponibles');
+      }
+  });
+  /* #swagger.responses[200] = {
+        description: "Operacion exitosa",
+        content: {
+          "application/json": {
+            schema: { 
+              $ref: "#/definitions/myReferencedProdArray"                             
+            }
+          }
+        }
+    }
+*/
+});
+
 
 //createPOOL
 connection.getConnection(function (err, connection) {

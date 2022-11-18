@@ -57,11 +57,50 @@ const doc = {
             IdUsuario: 201,
             id_estado: "Enviado"
           }
+        },
+
+        Prod: {
+          type: "object",
+          properties: {
+            IdProducto: {
+              type: "number",
+              description: "Id del producto",
+              example: 15
+            },
+            CodProducto: {
+              type: "string",
+              description: "Codigo del producto",
+              example: "12345"
+            },
+            Descripcion: {
+              type: "string",
+              description: "Nombre del producto",
+              example: "Logitech G123 - Ultra"
+            },
+            Precio: {
+              type: "number",
+              description: "Precio del producto",
+              example: 203.20
+            },
+            Stock: {
+              type: "number",
+              description: "Stock del producto",
+              example: 223
+            }      
+          },
+          example: {
+            IdProducto: 15,
+            CodProducto: "12345",
+            Descripcion: "Nombre del producto",
+            Precio: 203.20,
+            Stock: 223
+          }
         }
       }
     },
     definitions: {
-      myReferencedBillArray: [{ $ref: "#/definitions/Bill" }]
+      myReferencedBillArray: [{ $ref: "#/definitions/Bill" }],
+      myReferencedProdArray: [{ $ref: "#/definitions/Prod" }]
     }
   };
   
