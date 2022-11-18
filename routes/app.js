@@ -41,12 +41,7 @@ router.get('/ecommerce', (req, res) => {
 router.get('/ecommerce/:factura', (req,res) =>{
     const {factura } = req.params
     const sql = `SELECT * FROM cab_venta Where NumFactura = ${factura}`;
-        connection.query(sql, (error, result) => {
-            if(error) throw error;
-
-            if(result.length > 0) {
-            
-                /* #swagger.responses[200] = {
+    /* #swagger.responses[200] = {
           description: "Operacion exitosa",
           content: {
             "application/json": {
@@ -56,7 +51,12 @@ router.get('/ecommerce/:factura', (req,res) =>{
             }
           }
       }
-    */
+    */    
+        connection.query(sql, (error, result) => {
+        
+            if(error) throw error;
+
+            if(result.length > 0) {
                 res.json(result);
 
             }else{
@@ -66,6 +66,7 @@ router.get('/ecommerce/:factura', (req,res) =>{
         });
         
 });
+/*
 
 router.post('/ecommerce/add', (req, res) =>{
     const sql = 'INSERT INTO cab_venta SET ?';
@@ -102,6 +103,7 @@ router.delete('/ecommerce/delete/:id', (req, res) =>{
     })
 
 })
+*/
 
 
 //createPOOL
