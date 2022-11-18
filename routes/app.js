@@ -103,9 +103,10 @@ router.get('/ecommerce', (req, res) => {
 });
 
 //PRODUCTOS
-router.get('/productos/:codigo', (req,res) =>{
+router.get('/productos/oferta', (req,res) =>{
   const {codigo } = req.params
-  const sql = `SELECT * FROM producto Where CodProducto = "${codigo}"`;
+  //const sql = `SELECT * FROM producto Where CodProducto = "${codigo}"`;
+  const sql = 'SELECT * FROM producto ORDER BY IdProducto DESC LIMIT 1';
     
       connection.query(sql, (error, result) => {
       
