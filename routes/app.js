@@ -34,29 +34,10 @@ router.get('/ecommerce', (req, res) => {
 
 
 //BOLETA FOR ID
-router.get('/ecommerce/:factura', (req,res) =>{
-    const {factura } = req.params
-    const sql = `SELECT * FROM cab_venta Where NumFactura = ${factura}`;
-      
-        connection.query(sql, (error, result) => {
-        
-            if(error) throw error;
-
-            if(result.length > 0) {
-                const jsonVar = 
-                  {Id_Venta: result[0].Id_Venta, 
-                              NumFactura: result[0].NumFactura, 
-                              Total_Fac: result[0].Total_Fac, 
-                              Fecha_Fac: result[0].Fecha_Fac, 
-                              IdUsuario: result[0].IdUsuario, 
-                              id_estado: result[0].id_estado};
-                res.send(jsonVar);
-
-            }else{
-                res.status(404).send('Boleta no encontrada');
-                res.send('No existe la boleta');
-            }
-        });
+router.get('/ecommerce/:factura', (req, res) => {
+  dboventa.getVenta_x_factura(req.params.factura).then(result =>{
+    res.json(result[0]);
+  })
         /* #swagger.responses[200] = {
           description: "Operacion exitosa",
           content: {
