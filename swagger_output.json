@@ -157,7 +157,7 @@
             "description": "id de usuario",
             "example": 201
           },
-          "id_estado": {
+          "des_estado": {
             "type": "string",
             "description": "estado del pedido",
             "example": "Enviado"
@@ -169,7 +169,7 @@
           "Total_Fac": 3000.5,
           "Fecha_Fac": "15/11/2022",
           "IdUsuario": 201,
-          "id_estado": "Enviado"
+          "des_estado": "Enviado"
         }
       },
       "Prod": {
