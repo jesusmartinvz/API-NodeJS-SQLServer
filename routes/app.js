@@ -19,8 +19,13 @@ const connection = mysql.createPool({
 //Route
 router.get('/ecommerce', (req, res) => {
     dboventa.getVenta().then(result =>{
-      res.json(result[0]);
-    })
+      if(result.length > 0) {
+        res.json(result[0]);
+    }else{
+        res.send('No hay boletas disponibles');
+    }
+      
+    });
     /* #swagger.responses[200] = {
           description: "Operacion exitosa",
           content: {
@@ -38,8 +43,15 @@ router.get('/ecommerce', (req, res) => {
 //BOLETA FOR ID
 router.get('/ecommerce/:factura', (req, res) => {
   dboventa.getVenta_x_factura(req.params.factura).then(result =>{
-    res.json(result[0]);
-  })
+    if(result.length > 0) {
+      res.json(result[0]);
+    }else{
+      //res.status(404).send('Boleta no encontrada');
+      //res.send('No existe la boleta');
+      res.status(500).send();
+  }
+    
+  });
         /* #swagger.responses[200] = {
           description: "Operacion exitosa",
           content: {
@@ -58,8 +70,12 @@ router.get('/ecommerce/:factura', (req, res) => {
 //PRODUCTOS
 router.get('/productos/oferta', (req,res) =>{
   dboventa.getProducto().then(result =>{
-    res.json(result[0]);
-  })
+    if(result.length > 0) {
+      res.json(result[0]);
+    }else{
+      res.send('No hay boletas disponibles');
+  }
+  });
       /* #swagger.responses[200] = {
         description: "Operacion exitosa",
         content: {
