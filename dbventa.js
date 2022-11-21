@@ -9,7 +9,7 @@ async function getVenta(){
         console.log('Sql Server getVenta() connect...');
         return ventas.recordsets;
     }catch(error){
-        console.log('error: ' + error);
+        console.log('error getVenta : ' + error);
     }
 }
 
@@ -18,15 +18,46 @@ async function getVenta_x_factura(factura){
         let pool = await sql.connect(config);
         let ventas = await pool.request()
         .input('input_parameter', sql.VarChar, factura)
-        .query("SELECT * FROM cab_venta Where NumFactura = @input_parameter");
+        .query("Select cv.Id_Venta, cv.NumFactura, cv.Total_Fac, CONVERT(VARCHAR, cv.Fecha_Fac, 103) AS Fecha_Fac, cv.IdUsuario, ep.des_estado from cab_venta cv Inner JOIN estado_pedido ep ON cv.id_estado = ep.id_estado Where NumFactura = @input_parameter");
         console.log('Sql Server getVenta_x_factura() connect...');
         return ventas.recordset;
     }catch(error){
-        console.log('error: ' + error);
+        console.log('error getVenta_x_factura : ' + error);
+    }
+}
+
+async function getProducto(){
+    try{
+        let pool = await sql.connect(config);
+        let ventas = await pool.request().query("SELECT * FROM producto ORDER BY IdProducto DESC");
+        console.log('Sql Server getProducot() connect...');
+        return ventas.recordset;
+    }catch(error){
+        console.log('error getProducto : ' + error);
+    }
+}
+
+async function insertarContacto(contacto){
+    try{
+        let pool = await sql.connect(config);
+        let insertcontact = await pool.request()
+        .input('nombre', sql.VarChar, contacto.nombre)
+        .input('apellido', sql.VarChar, contacto.apellido)
+        .input('correo', sql.VarChar, contacto.correo)
+        .input('telefono', sql.VarChar, contacto.telefono)
+        .input('descripcion', sql.VarChar, contacto.descripcion)
+        .input('motivo', sql.VarChar, contacto.motivo)
+        .execute("SP_CONTACTOS");
+        console.log('Sql Server getVenta_x_factura() connect...');
+        return insertcontact.recordsets;
+    }catch(error){
+        console.log('error insertarContacto: ' + error);
     }
 }
 
 module.exports = {
     getVenta : getVenta,
-    getVenta_x_factura : getVenta_x_factura
+    getVenta_x_factura : getVenta_x_factura,
+    getProducto : getProducto,
+    insertarContacto : insertarContacto
 }

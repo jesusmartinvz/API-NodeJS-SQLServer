@@ -1,3 +1,5 @@
+//clase contacto
+var Contacto = require('../contacto')
 //venta
 const dboventa = require('../dbventa')
 //
@@ -52,56 +54,12 @@ router.get('/ecommerce/:factura', (req, res) => {
         
 });
 
-router.get('/ecommerce', (req, res) => {
-    const sql = 'SELECT * FROM cab_venta';
-    
-    connection.query(sql, (error, results) => {
-        if(error) throw error;
-
-        if(results.length > 0) {
-            res.json(results);
-            console.log(results);
-        }else{
-            res.send('No hay boletas disponibles');
-        }
-    });
-    /* #swagger.responses[200] = {
-          description: "Operacion exitosa",
-          content: {
-            "application/json": {
-              schema: { 
-                $ref: "#/definitions/myReferencedBillArray"                             
-              }
-            }
-          }
-      }
-  */
-});
 
 //PRODUCTOS
 router.get('/productos/oferta', (req,res) =>{
-  const {codigo } = req.params
-  //const sql = `SELECT * FROM producto Where CodProducto = "${codigo}"`;
-  const sql = 'SELECT * FROM producto ORDER BY IdProducto DESC LIMIT 1';
-    
-      connection.query(sql, (error, result) => {
-      
-          if(error) throw error;
-
-          if(result.length > 0) {
-              const jsonVarP = 
-                            {IdProducto: result[0].IdProducto, 
-                            CodProducto: result[0].CodProducto, 
-                            Descripcion: result[0].Descripcion, 
-                            Precio: result[0].Precio, 
-                            Stock: result[0].Stock};
-              res.send(jsonVarP);
-
-          }else{
-              res.status(404).send('Boleta no encontrada');
-              res.send('No existe la boleta');
-          }
-      });
+  dboventa.getProducto().then(result =>{
+    res.json(result[0]);
+  })
       /* #swagger.responses[200] = {
         description: "Operacion exitosa",
         content: {
@@ -116,47 +74,12 @@ router.get('/productos/oferta', (req,res) =>{
       
 });
 
-//ALL PRODUCTOS
-router.get('/productos', (req, res) => {
-  const sql = 'SELECT * FROM producto ORDER BY IdProducto DESC LIMIT 5';
-  
-  connection.query(sql, (error, results) => {
-      if(error) throw error;
-
-      if(results.length > 0) {
-          res.json(results);
-          console.log(results);
-      }else{
-          res.send('No hay boletas disponibles');
-      }
-  });
-  /* #swagger.responses[200] = {
-        description: "Operacion exitosa",
-        content: {
-          "application/json": {
-            schema: { 
-              $ref: "#/definitions/myReferencedProdArray"                             
-            }
-          }
-        }
-    }
-*/
-});
 
 router.post('/contactos/add', (req, res) =>{
-  const sql = 'INSERT INTO contactos SET ?';
-  const ventaObj = {
-      nombre: req.body.nombre,
-      apellido: req.body.apellido,
-      correo: req.body.correo,
-      telefono: req.body.telefono,
-      descripcion: req.body.descripcion,
-      motivo: req.body.motivo
-  };
-  connection.query(sql, ventaObj, error => {
-      if(error) throw error;
-      res.send('Cliente agregado');
-  });
+  let contacto = {...req.body}
+  dboventa.insertarContacto(contacto).then(result =>{
+    res.json(result[0]);
+  })
     /* #swagger.requestBody = {
         required: true,
         content: {
