@@ -59,19 +59,10 @@
         }
       }
     },
-    "/productos/{codigo}": {
+    "/productos/oferta": {
       "get": {
         "description": "",
-        "parameters": [
-          {
-            "name": "codigo",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Operacion exitosa",

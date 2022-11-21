@@ -1,3 +1,6 @@
+//venta
+const dboventa = require('../dbventa')
+//
 const express = require('express');
 const router = express.Router();
 
@@ -13,18 +16,9 @@ const connection = mysql.createPool({
 
 //Route
 router.get('/ecommerce', (req, res) => {
-    const sql = 'SELECT * FROM cab_venta';
-    
-    connection.query(sql, (error, results) => {
-        if(error) throw error;
-
-        if(results.length > 0) {
-            res.json(results);
-            console.log(results);
-        }else{
-            res.send('No hay boletas disponibles');
-        }
-    });
+    dboventa.getVenta().then(result =>{
+      res.json(result[0]);
+    })
     /* #swagger.responses[200] = {
           description: "Operacion exitosa",
           content: {
@@ -37,6 +31,7 @@ router.get('/ecommerce', (req, res) => {
       }
   */
 });
+
 
 //BOLETA FOR ID
 router.get('/ecommerce/:factura', (req,res) =>{
