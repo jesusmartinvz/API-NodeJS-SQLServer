@@ -67,13 +67,15 @@ router.get('/ecommerce/:factura', (req, res) => {
 });
 
 
+
+
 //PRODUCTOS
 router.get('/productos/oferta', (req,res) =>{
   dboventa.getProducto().then(result =>{
     if(result.length > 0) {
       res.json(result[0]);
     }else{
-      res.send('No hay boletas disponibles');
+      res.send('No hay productos disponibles');
   }
   });
       /* #swagger.responses[200] = {
@@ -119,8 +121,32 @@ router.post('/contactos/add', (req, res) =>{
   */
 });
 
+router.get('/productos/ofertas', (req, res) => {
+  dboventa.get3Productos().then(result =>{
+    if(result.length > 0) {
+      res.json(result[0]);
+  }else{
+      res.send('No hay ofertas disponibles');
+  }
+    
+  });
+  /* #swagger.responses[200] = {
+        description: "Operacion exitosa",
+        content: {
+          "application/json": {
+            schema: { 
+              $ref: "#/definitions/myReferencedBillArray"                             
+            }
+          }
+        }
+    }
+*/
+});
 
-//createPOOL
+
+
+//createPOOL - MYSQL
+/*
 connection.getConnection(function (err, connection) {
     //connecting to database
     if (err) {
@@ -129,6 +155,6 @@ connection.getConnection(function (err, connection) {
         console.log("MYSQL CONNECTED SUCCESSFULLY.");
     }
 });
-
+*/
 
 module.exports = router;

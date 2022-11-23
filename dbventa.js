@@ -37,6 +37,8 @@ async function getProducto(){
     }
 }
 
+
+
 async function insertarContacto(contacto){
     try{
         let pool = await sql.connect(config);
@@ -55,9 +57,23 @@ async function insertarContacto(contacto){
     }
 }
 
+//test
+async function get3Productos(){
+    try{
+        let pool = await sql.connect(config);
+        let ventas = await pool.request().query("SELECT TOP 3 * FROM producto ORDER BY IdProducto DESC");
+        console.log('Sql Server get3Productos() connect...');
+        return ventas.recordsets;
+    }catch(error){
+        console.log('error get3Productos : ' + error);
+    }
+}
+//fin test
+
 module.exports = {
     getVenta : getVenta,
     getVenta_x_factura : getVenta_x_factura,
     getProducto : getProducto,
-    insertarContacto : insertarContacto
+    insertarContacto : insertarContacto,
+    get3Productos : get3Productos
 }
