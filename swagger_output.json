@@ -53,8 +53,8 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found"
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -73,14 +73,11 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
     },
-    "/productos": {
+    "/productos/oferta2": {
       "get": {
         "description": "",
         "parameters": [],
@@ -90,7 +87,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/myReferencedProdArray"
+                  "$ref": "#/components/schemas/Prod"
                 }
               }
             }
@@ -157,7 +154,7 @@
             "description": "id de usuario",
             "example": 201
           },
-          "des_estado": {
+          "id_estado": {
             "type": "string",
             "description": "estado del pedido",
             "example": "Enviado"
@@ -169,7 +166,7 @@
           "Total_Fac": 3000.5,
           "Fecha_Fac": "15/11/2022",
           "IdUsuario": 201,
-          "des_estado": "Enviado"
+          "id_estado": "Enviado"
         }
       },
       "Prod": {

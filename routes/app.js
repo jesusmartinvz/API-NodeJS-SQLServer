@@ -92,6 +92,28 @@ router.get('/productos/oferta', (req,res) =>{
       
 });
 
+router.get('/productos/oferta2', (req,res) =>{
+  dboventa.getProducto2().then(result =>{
+    if(result.length > 0) {
+      res.json(result[0]);
+    }else{
+      res.send('No hay productos disponibles');
+  }
+  });
+      /* #swagger.responses[200] = {
+        description: "Operacion exitosa",
+        content: {
+          "application/json": {
+            schema: { 
+              $ref: "#/definitions/Prod"
+            }
+          }
+        }
+    }
+  */  
+      
+});
+
 
 router.post('/contactos/add', (req, res) =>{
   let contacto = {...req.body}
@@ -120,29 +142,6 @@ router.post('/contactos/add', (req, res) =>{
       }
   */
 });
-
-router.get('/productos/ofertas', (req, res) => {
-  dboventa.get3Productos().then(result =>{
-    if(result.length > 0) {
-      res.json(result[0]);
-  }else{
-      res.send('No hay ofertas disponibles');
-  }
-    
-  });
-  /* #swagger.responses[200] = {
-        description: "Operacion exitosa",
-        content: {
-          "application/json": {
-            schema: { 
-              $ref: "#/definitions/myReferencedBillArray"                             
-            }
-          }
-        }
-    }
-*/
-});
-
 
 
 //createPOOL - MYSQL

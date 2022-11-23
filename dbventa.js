@@ -58,14 +58,15 @@ async function insertarContacto(contacto){
 }
 
 //test
-async function get3Productos(){
+async function getProducto2(){
     try{
         let pool = await sql.connect(config);
-        let ventas = await pool.request().query("SELECT TOP 3 * FROM producto ORDER BY IdProducto DESC");
-        console.log('Sql Server get3Productos() connect...');
-        return ventas.recordsets;
+        let ventas = await pool.request()
+        .query("SELECT TOP 1 * FROM producto WHERE IdProducto < ( SELECT MAX(IdProducto) FROM producto) ORDER BY IdProducto DESC");
+        console.log('Sql Server getProducto2() connect...');
+        return ventas.recordset;
     }catch(error){
-        console.log('error get3Productos : ' + error);
+        console.log('error getProducto2 : ' + error);
     }
 }
 //fin test
@@ -75,5 +76,5 @@ module.exports = {
     getVenta_x_factura : getVenta_x_factura,
     getProducto : getProducto,
     insertarContacto : insertarContacto,
-    get3Productos : get3Productos
+    getProducto2 : getProducto2
 }
